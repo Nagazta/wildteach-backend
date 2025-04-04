@@ -1,5 +1,7 @@
 package com.wildteach.tutoringsystem.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,10 @@ public class wildteachServiceImpl implements wildteachService{
 	public wildteachEntity saveStudent(wildteachEntity student) {
 	
 		return studentRepository.save(student);
+	}
+	@Override
+	public List<wildteachEntity> getAllStudents() {
+		return studentRepository.findAll();
 	}
 
 }
