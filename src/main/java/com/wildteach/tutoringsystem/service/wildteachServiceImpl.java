@@ -23,5 +23,9 @@ public class wildteachServiceImpl implements wildteachService{
 	public List<wildteachEntity> getAllStudents() {
 		return studentRepository.findAll();
 	}
+	@Override
+	public wildteachEntity getStudentById(Long id) {
+		return studentRepository.findById(id).orElse(null);
+	}
 
 }

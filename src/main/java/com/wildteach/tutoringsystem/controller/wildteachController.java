@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.wildteach.tutoringsystem.entity.wildteachEntity;
 import com.wildteach.tutoringsystem.service.wildteachService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 
 @RestController
@@ -31,6 +32,10 @@ public class wildteachController {
 	@GetMapping("/All")
 	public List<wildteachEntity> getAllStudents() {
 		return studentService.getAllStudents();
+	}
+	@GetMapping("/getById/{id}")
+	public wildteachEntity getStudentById(@PathVariable long id) {
+		return studentService.getStudentById(id);
 	}
 	
 }

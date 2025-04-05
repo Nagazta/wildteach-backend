@@ -9,6 +9,7 @@ import com.wildteach.tutoringsystem.entity.wildteachEntity;
 public interface wildteachService {
 	public wildteachEntity saveStudent(wildteachEntity student);
 	List<wildteachEntity> getAllStudents();
+	public wildteachEntity getStudentById(Long id);
 
 	
 }
