@@ -5,6 +5,5 @@ import org.springframework.stereotype.Repository;
 import com.wildteach.tutoringsystem.entity.studentEntity;
 
 @Repository
-public interface studentRepository extends JpaRepository<studentEntity, Long>{
-
+public interface studentRepository extends JpaRepository<studentEntity, Long> {
 }
