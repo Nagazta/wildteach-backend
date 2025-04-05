@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.wildteach.tutoringsystem.entity.wildteachEntity;
-import com.wildteach.tutoringsystem.service.wildteachService;
+import com.wildteach.tutoringsystem.entity.studentEntity;
+import com.wildteach.tutoringsystem.service.studentService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
@@ -20,31 +20,31 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RestController
 @RequestMapping("/student")
 @CrossOrigin
-public class wildteachController {
+public class studentController {
 	@Autowired
-	private wildteachService studentService;
+	private studentService studentService;
 	
 	// Endpoint to add a new student
 	@PostMapping("/add")
-	public String addStudent(@RequestBody wildteachEntity student) {
+	public String addStudent(@RequestBody studentEntity student) {
 		studentService.saveStudent(student);
 		return "New student is added";
 	}
 	// Endpoint to get all students
 	@GetMapping("/All")
-	public List<wildteachEntity> getAllStudents() {
+	public List<studentEntity> getAllStudents() {
 		return studentService.getAllStudents();
 	} 
 	//Endpoint to get a student by ID
 	@GetMapping("/getById/{id}")
-	public wildteachEntity getStudentById(@PathVariable long id) {
+	public studentEntity getStudentById(@PathVariable long id) {
 		return studentService.getStudentById(id);
 	}
-	// Endpoint to update a student by ID
 	
+	// Endpoint to update a student by ID
 	@PutMapping("/update/{id}")
-	public ResponseEntity<wildteachEntity> updateStudent(@PathVariable Long id, @RequestBody wildteachEntity studentDetails) {
-		wildteachEntity updatedStudent = studentService.updateStudent(id, studentDetails);
+	public ResponseEntity<studentEntity> updateStudent(@PathVariable Long id, @RequestBody studentEntity studentDetails) {
+		studentEntity updatedStudent = studentService.updateStudent(id, studentDetails);
 		if (updatedStudent != null) {
 			return ResponseEntity.ok(updatedStudent);
 		} else {

@@ -5,31 +5,31 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.wildteach.tutoringsystem.entity.wildteachEntity;
-import com.wildteach.tutoringsystem.repository.wildteachRepository;
+import com.wildteach.tutoringsystem.entity.studentEntity;
+import com.wildteach.tutoringsystem.repository.studentRepository;
 
 
 @Service
 
-public class wildteachServiceImpl implements wildteachService{
+public class studentServiceImpl implements studentService{
 	@Autowired
-	private wildteachRepository studentRepository;
+	private studentRepository studentRepository;
 	@Override
-	public wildteachEntity saveStudent(wildteachEntity student) {
+	public studentEntity saveStudent(studentEntity student) {
 	
 		return studentRepository.save(student);
 	}
 	@Override
-	public List<wildteachEntity> getAllStudents() {
+	public List<studentEntity> getAllStudents() {
 		return studentRepository.findAll();
 	}
 	@Override
-	public wildteachEntity getStudentById(Long id) {
+	public studentEntity getStudentById(Long id) {
 		return studentRepository.findById(id).orElse(null);
 	}
 	@Override
-	public wildteachEntity updateStudent(Long id, wildteachEntity studentDetails) {
-		wildteachEntity student = studentRepository.findById(id).orElse(null);
+	public studentEntity updateStudent(Long id, studentEntity studentDetails) {
+		studentEntity student = studentRepository.findById(id).orElse(null);
 		if (student != null) {
 			student.setLast_name(studentDetails.getLast_name());
 			student.setFirst_name(studentDetails.getFirst_name());

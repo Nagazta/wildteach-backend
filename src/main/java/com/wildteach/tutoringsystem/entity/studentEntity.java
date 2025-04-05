@@ -9,7 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 
 @Entity
-public class wildteachEntity {
+public class studentEntity {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long student_id;
@@ -32,7 +32,7 @@ public class wildteachEntity {
 	private Role role;
 	private String password;
 	
-	public wildteachEntity() {}
+	public studentEntity() {}
 	public enum Role {
 	    Tutee,
 	    Tutor
@@ -120,5 +120,9 @@ public class wildteachEntity {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public Object map(Object object) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'map'");
 	}
 }
