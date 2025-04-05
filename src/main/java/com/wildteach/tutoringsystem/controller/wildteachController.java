@@ -33,6 +33,7 @@ public class wildteachController {
 	public List<wildteachEntity> getAllStudents() {
 		return studentService.getAllStudents();
 	}
+	//Endpoint to get a student by ID
 	@GetMapping("/getById/{id}")
 	public wildteachEntity getStudentById(@PathVariable long id) {
 		return studentService.getStudentById(id);
