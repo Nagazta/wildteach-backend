@@ -10,6 +10,7 @@ public interface wildteachService {
 	public wildteachEntity saveStudent(wildteachEntity student);
 	List<wildteachEntity> getAllStudents();
 	public wildteachEntity getStudentById(Long id);
+	public wildteachEntity updateStudent(Long id, wildteachEntity studentDetails); 
 
 	
 }
