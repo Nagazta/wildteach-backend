@@ -121,8 +121,5 @@ public class studentEntity {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Object map(Object object) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'map'");
-	}
+
 }

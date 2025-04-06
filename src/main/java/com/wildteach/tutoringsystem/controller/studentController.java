@@ -41,16 +41,7 @@ public class studentController {
 		return studentService.getStudentById(id);
 	}
 	
-	// Endpoint to update a student by ID
-	@PutMapping("/update/{id}")
-	public ResponseEntity<studentEntity> updateStudent(@PathVariable Long id, @RequestBody studentEntity studentDetails) {
-		studentEntity updatedStudent = studentService.updateStudent(id, studentDetails);
-		if (updatedStudent != null) {
-			return ResponseEntity.ok(updatedStudent);
-		} else {
-			return ResponseEntity.notFound().build();
-		}
-	}
+
 
 	
 }
