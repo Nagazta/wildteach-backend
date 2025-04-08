@@ -45,7 +45,14 @@ public class adminServiceImpl implements adminService{
         }
         return admin;
     }
-
-
-
+    @Override
+    public adminEntity login(adminEntity admin) {
+        adminEntity foundAdmin = adminRepository.findByName(admin.getName());
+    
+        if (foundAdmin != null && foundAdmin.getPassword().equals(admin.getPassword())) {
+            return foundAdmin;
+        }
+    
+        return null; 
+    }
 }

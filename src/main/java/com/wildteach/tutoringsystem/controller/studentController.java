@@ -14,18 +14,18 @@ public class studentController {
 
 	@Autowired
 	private studentService studentService;
-
+    // Endpoint to add a new student
 	@PostMapping("/add")
 	public String addStudent(@RequestBody studentEntity student) {
 		studentService.saveStudent(student);
 		return "New student is added";
 	}
-
+	// Endpoint to get all students
 	@GetMapping("/All")
 	public List<studentEntity> getAllStudents() {
 		return studentService.getAllStudents();
 	}
-
+	// Endpoint to get a student by ID
 	@GetMapping("/getById/{id}")
 	public studentEntity getStudentById(@PathVariable long id) {
 		return studentService.getStudentById(id);
@@ -41,7 +41,7 @@ public class studentController {
 			return ResponseEntity.notFound().build();
 		}
 	}
-
+	// Endpoint to delete a student by ID
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<String> deleteStudent(@PathVariable Long id) {
 		boolean deleted = studentService.deleteStudent(id);

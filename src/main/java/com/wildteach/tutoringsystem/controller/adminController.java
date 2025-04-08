@@ -11,6 +11,7 @@ import com.wildteach.tutoringsystem.service.adminService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,7 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
 @RequestMapping("/admin")
-// @CrossOrigin
+@CrossOrigin
 public class adminController {
     @Autowired
     private adminService adminService;
@@ -54,5 +55,10 @@ public class adminController {
     public adminEntity deleteAdmin(@PathVariable Long id) {
         return adminService.deleteAdmin(id);
     }
-    
+
+    //Endpoint to login as admin
+    @PostMapping("/login")
+    public adminEntity login(@RequestBody adminEntity admin) {
+        return adminService.login(admin);
+    }
 }
