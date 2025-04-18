@@ -23,7 +23,7 @@ public class studentServiceImpl implements studentService {
 	public studentEntity getStudentById(Long id) {
 		return studentRepository.findById(id).orElse(null);
 	}
-
+	@Override
 	public studentEntity updateStudent(Long id, studentEntity studentDetails) {
 		studentEntity student = studentRepository.findById(id).orElse(null);
 		if (student != null) {
@@ -39,7 +39,7 @@ public class studentServiceImpl implements studentService {
 			student.setCourse(studentDetails.getCourse());
 			student.setYear_level(studentDetails.getYear_level());
 			student.setRole(studentDetails.getRole());
-			student.setPassword(studentDetails.getPassword());
+			
 			return studentRepository.save(student);
 		}
 		return null;
