@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.wildteach.tutoringsystem.entity.announcementEntity;
 import com.wildteach.tutoringsystem.service.announcementService;
@@ -19,7 +20,7 @@ import com.wildteach.tutoringsystem.service.announcementService;
 
 @RestController
 @RequestMapping("/announcement")
-// @CrossOrigin
+@CrossOrigin
 public class announcementController {
     @Autowired
     private announcementService announcementService;
