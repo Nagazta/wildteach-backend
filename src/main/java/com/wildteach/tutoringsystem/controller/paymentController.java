@@ -14,12 +14,11 @@ import com.wildteach.tutoringsystem.service.paymentService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
 @RequestMapping("/payment")
-// @CrossOrigin
+@CrossOrigin
 public class paymentController {
     @Autowired
     private paymentService paymentService;
