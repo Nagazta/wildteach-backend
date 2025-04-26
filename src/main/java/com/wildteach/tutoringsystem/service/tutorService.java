@@ -9,4 +9,5 @@ public interface tutorService {
     tutorEntity getTutorById(Long id);
     tutorEntity updateTutor(Long id, tutorEntity tutorDetails);
     void deleteTutor(Long id);
+    boolean authenticateTutor(String email, String password); 
 }

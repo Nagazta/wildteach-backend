@@ -3,7 +3,10 @@ package com.wildteach.tutoringsystem.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.wildteach.tutoringsystem.entity.studentEntity;
 import com.wildteach.tutoringsystem.entity.tutorEntity;
+import com.wildteach.tutoringsystem.repository.studentRepository;
 import com.wildteach.tutoringsystem.repository.tutorRepository;
 
 @Service
@@ -11,6 +14,8 @@ public class tutorServiceImpl implements tutorService {
     
     @Autowired
     private tutorRepository tutorRepository;
+    @Autowired
+    private studentRepository studentRepository;
 
     @Override
     public tutorEntity saveTutor(tutorEntity tutor) {
@@ -44,4 +49,12 @@ public class tutorServiceImpl implements tutorService {
     public void deleteTutor(Long id) {
         tutorRepository.deleteById(id);
     }
+    @Override
+    public boolean authenticateTutor(String email, String password) {
+        studentEntity student = studentRepository.findByEmail(email);
+        return student != null && student.getPassword().equals(password) && student.getRole() == studentEntity.Role.Tutor;
+    }
+
+
+    
 }

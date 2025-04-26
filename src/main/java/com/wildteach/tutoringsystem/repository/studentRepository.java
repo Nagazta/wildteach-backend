@@ -6,4 +6,6 @@ import com.wildteach.tutoringsystem.entity.studentEntity;
 
 @Repository
 public interface studentRepository extends JpaRepository<studentEntity, Long> {
+    studentEntity findByEmail(String email); 
+  
 }

@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.wildteach.tutoringsystem.entity.studentEntity;
 import com.wildteach.tutoringsystem.entity.tutorEntity;
 import com.wildteach.tutoringsystem.service.tutorService;
 
@@ -49,4 +50,17 @@ public class tutorController {
         tutorService.deleteTutor(id);
         return ResponseEntity.status(HttpStatus.OK).body("Tutor profile deleted");
     }
+     //Endpoint to login a tutor
+     @PostMapping("/login")
+     public ResponseEntity<String> loginTutor(@RequestBody studentEntity student) {
+         boolean isAuthenticated = tutorService.authenticateTutor(student.getEmail(), student.getPassword());
+         if (isAuthenticated) {
+             return ResponseEntity.ok("Login successful");
+         } else {
+             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
+         }
+     }
+     
+
+
 }
