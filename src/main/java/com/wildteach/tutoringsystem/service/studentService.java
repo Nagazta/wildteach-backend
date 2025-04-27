@@ -7,9 +7,15 @@ public interface studentService {
 	studentEntity saveStudent(studentEntity student);
 
 	List<studentEntity> getAllStudents();
+
 	public studentEntity getStudentById(Long id);
-	public studentEntity updateStudent(Long id, studentEntity studentDetails); 
+
+	public studentEntity updateStudent(Long id, studentEntity studentDetails);
+
 	public boolean deleteStudent(Long id);
-	public boolean authenticateStudent(String email, String password); 
-	
+
+	public boolean authenticateStudent(String email, String password);
+
+	long countActiveStudents();
+
 }

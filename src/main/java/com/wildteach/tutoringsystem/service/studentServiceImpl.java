@@ -60,7 +60,13 @@ public class studentServiceImpl implements studentService {
 
     @Override
     public boolean authenticateStudent(String email, String password) {
-		studentEntity student = studentRepository.findByEmail(email);
-		return student != null && student.getPassword().equals(password) && student.getRole() == studentEntity.Role.Tutee;
-	}
+        studentEntity student = studentRepository.findByEmail(email);
+        return student != null && student.getPassword().equals(password)
+                && student.getRole() == studentEntity.Role.Tutee;
+    }
+
+    @Override
+    public long countActiveStudents() {
+        return studentRepository.countByRole(studentEntity.Role.Tutee); // Count students with role Tutee
+    }
 }

@@ -35,8 +35,14 @@ public class studentController {
         return studentService.getStudentById(id);
     }
 
+    @GetMapping("/activeStudentsCount")
+    public long getActiveStudentsCount() {
+        return studentService.countActiveStudents();
+    }
+
     @PutMapping("/update/{id}")
-    public ResponseEntity<studentEntity> updateStudent(@PathVariable Long id, @RequestBody studentEntity studentDetails) {
+    public ResponseEntity<studentEntity> updateStudent(@PathVariable Long id,
+            @RequestBody studentEntity studentDetails) {
         studentEntity updatedStudent = studentService.updateStudent(id, studentDetails);
         if (updatedStudent != null) {
             return ResponseEntity.ok(updatedStudent);
@@ -56,12 +62,12 @@ public class studentController {
     }
 
     @PostMapping("/login")
-	public ResponseEntity<String> loginStudent(@RequestBody studentEntity student) {
-		boolean isAuthenticated = studentService.authenticateStudent(student.getEmail(), student.getPassword());
-		if (isAuthenticated) {
-			return ResponseEntity.ok("Login successful");
-		} else {
-			return ResponseEntity.status(401).body("Invalid email or password");
-		}
-	}
+    public ResponseEntity<String> loginStudent(@RequestBody studentEntity student) {
+        boolean isAuthenticated = studentService.authenticateStudent(student.getEmail(), student.getPassword());
+        if (isAuthenticated) {
+            return ResponseEntity.ok("Login successful");
+        } else {
+            return ResponseEntity.status(401).body("Invalid email or password");
+        }
+    }
 }

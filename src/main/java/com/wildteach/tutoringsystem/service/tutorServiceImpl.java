@@ -11,7 +11,7 @@ import com.wildteach.tutoringsystem.repository.tutorRepository;
 
 @Service
 public class tutorServiceImpl implements tutorService {
-    
+
     @Autowired
     private tutorRepository tutorRepository;
     @Autowired
@@ -49,12 +49,18 @@ public class tutorServiceImpl implements tutorService {
     public void deleteTutor(Long id) {
         tutorRepository.deleteById(id);
     }
+
     @Override
     public boolean authenticateTutor(String email, String password) {
         studentEntity student = studentRepository.findByEmail(email);
-        return student != null && student.getPassword().equals(password) && student.getRole() == studentEntity.Role.Tutor;
+        return student != null && student.getPassword().equals(password)
+                && student.getRole() == studentEntity.Role.Tutor;
     }
 
+    @Override
+    public int countActiveTutors() {
+        // Count tutors who are 'Approved'
+        return (int) tutorRepository.countByApprovalStatus(tutorEntity.ApprovalStatus.Approved);
+    }
 
-    
 }

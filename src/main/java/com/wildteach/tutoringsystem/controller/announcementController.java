@@ -16,47 +16,53 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import com.wildteach.tutoringsystem.entity.announcementEntity;
 import com.wildteach.tutoringsystem.service.announcementService;
 
-
-
 @RestController
 @RequestMapping("/announcement")
 @CrossOrigin
 public class announcementController {
     @Autowired
     private announcementService announcementService;
+
     // Endpoint to add a new announcement
     @PostMapping("/addAnnounce")
     public String addAnnounce(@RequestBody announcementEntity announce) {
-        announcementService.saveAnnouncement(announce);        
+        announcementService.saveAnnouncement(announce);
         return "New announcement is added";
     }
+
     // Endpoint to get all announcements
     @GetMapping("/getAllAnnounce")
     public List<announcementEntity> getAllAnnouncements() {
         return announcementService.getAllAnnouncements();
     }
+
     // Endpoint to get an announcement by ID
     @GetMapping("/getAnnounceById/{id}")
     public announcementEntity getAnnouncementById(@PathVariable Long id) {
         return announcementService.getAnnouncementById(id);
     }
+
     // Endpoint to update an announcement by ID
     @PutMapping("/updateAnnouncement/{id}")
-    public announcementEntity updateAnnouncement(@PathVariable Long id, @RequestBody announcementEntity announcementDetails) {
-      announcementEntity updatedAnnounce = announcementService.updateAnnouncement(id, announcementDetails);
-        if(updatedAnnounce != null) {
+    public announcementEntity updateAnnouncement(@PathVariable Long id,
+            @RequestBody announcementEntity announcementDetails) {
+        announcementEntity updatedAnnounce = announcementService.updateAnnouncement(id, announcementDetails);
+        if (updatedAnnounce != null) {
             return updatedAnnounce;
         } else {
-            return null; 
+            return null;
         }
     }
+
     // Endpoint to delete an announcement by ID
     @DeleteMapping("/delete/{id}")
     public announcementEntity deleteAnnouncement(@PathVariable Long id) {
         return announcementService.deleteAnnouncement(id);
     }
-   
-    
-    
-    
+
+    @GetMapping("/activeAnnounce")
+    public List<announcementEntity> getActiveAnnouncements() {
+        return announcementService.getActiveAnnouncements();
+    }
+
 }

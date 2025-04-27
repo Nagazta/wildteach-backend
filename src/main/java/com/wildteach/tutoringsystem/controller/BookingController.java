@@ -61,4 +61,10 @@ public class BookingController {
             return ResponseEntity.status(404).body("Booking not found");
         }
     }
+
+    @GetMapping("/activeSessionsCount")
+    public long getActiveSessionsCount() {
+        return bookingService.getActiveSessionsCount(); // Call service to get the count
+    }
+
 }

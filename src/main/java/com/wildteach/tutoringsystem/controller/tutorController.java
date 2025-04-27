@@ -12,9 +12,9 @@ import com.wildteach.tutoringsystem.service.tutorService;
 
 @RestController
 @RequestMapping("/tutor")
-@CrossOrigin(origins = "*") 
+@CrossOrigin(origins = "*")
 public class tutorController {
-    
+
     @Autowired
     private tutorService tutorService;
 
@@ -24,16 +24,19 @@ public class tutorController {
         tutorService.saveTutor(tutor);
         return ResponseEntity.status(HttpStatus.CREATED).body("New tutor profile added");
     }
+
     // Endpoint to get all tutors
     @GetMapping("/all")
     public List<tutorEntity> getAllTutors() {
         return tutorService.getAllTutors();
     }
-   // Endpoint to get a tutor by ID
+
+    // Endpoint to get a tutor by ID
     @GetMapping("/getById/{id}")
     public tutorEntity getTutorById(@PathVariable Long id) {
         return tutorService.getTutorById(id);
     }
+
     // Endpoint to update a tutor by ID
     @PutMapping("/update/{id}")
     public ResponseEntity<tutorEntity> updateTutor(@PathVariable Long id, @RequestBody tutorEntity tutorDetails) {
@@ -44,23 +47,30 @@ public class tutorController {
             return ResponseEntity.notFound().build();
         }
     }
+
     // Endpoint to delete a tutor by ID
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteTutor(@PathVariable Long id) {
         tutorService.deleteTutor(id);
         return ResponseEntity.status(HttpStatus.OK).body("Tutor profile deleted");
     }
-     //Endpoint to login a tutor
-     @PostMapping("/login")
-     public ResponseEntity<String> loginTutor(@RequestBody studentEntity student) {
-         boolean isAuthenticated = tutorService.authenticateTutor(student.getEmail(), student.getPassword());
-         if (isAuthenticated) {
-             return ResponseEntity.ok("Login successful");
-         } else {
-             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
-         }
-     }
-     
 
+    // Endpoint to login a tutor
+    @PostMapping("/login")
+    public ResponseEntity<String> loginTutor(@RequestBody studentEntity student) {
+        boolean isAuthenticated = tutorService.authenticateTutor(student.getEmail(), student.getPassword());
+        if (isAuthenticated) {
+            return ResponseEntity.ok("Login successful");
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid email or password");
+        }
+    }
+
+    @GetMapping("/activeCount")
+    public ResponseEntity<Integer> getActiveTutorsCount() {
+        // Call the service to get the active tutors count
+        int activeTutorsCount = tutorService.countActiveTutors();
+        return ResponseEntity.ok(activeTutorsCount); // Return the count as a response
+    }
 
 }
