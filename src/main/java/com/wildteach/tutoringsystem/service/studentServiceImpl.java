@@ -67,6 +67,6 @@ public class studentServiceImpl implements studentService {
 
     @Override
     public long countActiveStudents() {
-        return studentRepository.countByRole(studentEntity.Role.Tutee); // Count students with role Tutee
+        return studentRepository.countByRole(studentEntity.Role.Tutee);
     }
 }

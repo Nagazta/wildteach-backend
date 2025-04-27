@@ -57,7 +57,7 @@ public class announcementServiceImpl implements announcementService {
         LocalDateTime thirtyDaysAgo = LocalDateTime.now().minus(30, ChronoUnit.DAYS);
         List<announcementEntity> allAnnouncements = announcementRepository.findAll();
 
-        // Filter out announcements that are older than 30 days
+        // Filter out announcements that beyond 30 days smth max
         return allAnnouncements.stream()
                 .filter(announcement -> announcement.getCreated_at().isAfter(thirtyDaysAgo))
                 .collect(Collectors.toList());

@@ -68,9 +68,8 @@ public class tutorController {
 
     @GetMapping("/activeCount")
     public ResponseEntity<Integer> getActiveTutorsCount() {
-        // Call the service to get the active tutors count
         int activeTutorsCount = tutorService.countActiveTutors();
-        return ResponseEntity.ok(activeTutorsCount); // Return the count as a response
+        return ResponseEntity.ok(activeTutorsCount);
     }
 
 }

@@ -64,7 +64,7 @@ public class BookingController {
 
     @GetMapping("/activeSessionsCount")
     public long getActiveSessionsCount() {
-        return bookingService.getActiveSessionsCount(); // Call service to get the count
+        return bookingService.getActiveSessionsCount();
     }
 
 }
