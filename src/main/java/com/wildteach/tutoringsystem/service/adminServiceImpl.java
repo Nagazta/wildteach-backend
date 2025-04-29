@@ -47,7 +47,7 @@ public class adminServiceImpl implements adminService{
     }
     @Override
     public adminEntity login(adminEntity admin) {
-        adminEntity foundAdmin = adminRepository.findByName(admin.getName());
+        adminEntity foundAdmin = adminRepository.findByEmail(admin.getEmail());
     
         if (foundAdmin != null && foundAdmin.getPassword().equals(admin.getPassword())) {
             return foundAdmin;

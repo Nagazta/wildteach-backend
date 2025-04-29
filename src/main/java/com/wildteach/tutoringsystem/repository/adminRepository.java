@@ -7,7 +7,7 @@ import com.wildteach.tutoringsystem.entity.adminEntity;
 
 @Repository
 public interface adminRepository extends JpaRepository<adminEntity, Long> {
-    adminEntity findByName(String name);
+    adminEntity findByEmail(String email);
 
     
 } 
