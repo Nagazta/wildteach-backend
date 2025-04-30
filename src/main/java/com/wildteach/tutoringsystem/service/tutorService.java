@@ -10,4 +10,5 @@ public interface tutorService {
     tutorEntity updateTutor(Long id, tutorEntity tutorDetails);
     void deleteTutor(Long id);
     boolean authenticateTutor(String email, String password); 
+    boolean updateTutorPassword(Long tutor_id, String currentPassword, String newPassword);
 }

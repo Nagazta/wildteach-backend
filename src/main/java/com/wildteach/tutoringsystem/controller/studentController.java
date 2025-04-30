@@ -4,9 +4,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.wildteach.tutoringsystem.dto.updatePasswordDTO;
 import com.wildteach.tutoringsystem.entity.studentEntity;
 import com.wildteach.tutoringsystem.service.studentService;
-import com.wildteach.tutoringsystem.repository.studentRepository;
+
 
 @RestController
 @RequestMapping("/student")
@@ -16,9 +18,7 @@ public class studentController {
     @Autowired
     private studentService studentService;
 
-    @Autowired
-    private studentRepository studentRepository; // Inject the studentRepository
-
+    
     @PostMapping("/add")
     public String addStudent(@RequestBody studentEntity student) {
         studentService.saveStudent(student);
@@ -44,7 +44,7 @@ public class studentController {
             return ResponseEntity.notFound().build();
         }
     }
-
+  
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteStudent(@PathVariable Long id) {
         boolean deleted = studentService.deleteStudent(id);
@@ -64,4 +64,29 @@ public class studentController {
 			return ResponseEntity.status(401).body("Invalid email or password");
 		}
 	}
+    @PutMapping("/updatePassword")
+    public ResponseEntity<String> updateStudentPassword(
+        @RequestBody updatePasswordDTO dto) {  // Use the DTO here
+    
+        // Extract studentId from the request (assuming it's part of the logged-in user or passed in the body)
+        Long studentId = dto.getStudentId();  // Add this to your DTO if it's not there
+    
+        if (studentId == null) {
+            return ResponseEntity.status(400).body("Student ID is missing");
+        }
+    
+        boolean success = studentService.updateStudentPassword(
+            studentId,  // Use the extracted student ID
+            dto.getOldPassword(), 
+            dto.getNewPassword());  // Use the DTO's fields
+    
+        if (success) {
+            return ResponseEntity.ok("Password updated successfully");
+        } else {
+            return ResponseEntity.status(400).body("Current password is incorrect");
+        }
+    }
+    
+
+
 }

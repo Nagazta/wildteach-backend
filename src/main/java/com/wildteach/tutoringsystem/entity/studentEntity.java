@@ -23,7 +23,11 @@ public class studentEntity {
 	private String address;
 	private String username;
 	private String course;
-	private int year_level;
+
+	// 🔧 Changed from 'int' to 'Integer' for null-safe updates
+	private Integer year_level;
+
+	private String profileImage;
 
 	@Enumerated(EnumType.STRING)
 	private Role role;
@@ -131,11 +135,11 @@ public class studentEntity {
 		this.course = course;
 	}
 
-	public int getYear_level() {
+	public Integer getYear_level() {
 		return year_level;
 	}
 
-	public void setYear_level(int year_level) {
+	public void setYear_level(Integer year_level) {
 		this.year_level = year_level;
 	}
 
@@ -154,8 +158,16 @@ public class studentEntity {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public void setProfileImage(String profileImage) {
+		this.profileImage = profileImage;
+	}
+
+	public String getProfileImage() {
+		return profileImage;
+	}
+
 	public Object map(Object object) {
-		// TODO Auto-generated method stub
 		throw new UnsupportedOperationException("Unimplemented method 'map'");
 	}
 }

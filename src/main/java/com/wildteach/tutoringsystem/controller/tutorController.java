@@ -10,6 +10,7 @@ import com.wildteach.tutoringsystem.entity.studentEntity;
 import com.wildteach.tutoringsystem.entity.tutorEntity;
 import com.wildteach.tutoringsystem.service.tutorService;
 
+
 @RestController
 @RequestMapping("/tutor")
 @CrossOrigin(origins = "*") 
@@ -17,6 +18,7 @@ public class tutorController {
     
     @Autowired
     private tutorService tutorService;
+
 
     // Endpoint to add a new tutor
     @PostMapping("/add")
@@ -44,6 +46,8 @@ public class tutorController {
             return ResponseEntity.notFound().build();
         }
     }
+
+
     // Endpoint to delete a tutor by ID
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteTutor(@PathVariable Long id) {

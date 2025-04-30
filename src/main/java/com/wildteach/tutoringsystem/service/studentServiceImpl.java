@@ -28,26 +28,58 @@ public class studentServiceImpl implements studentService {
     }
 
     @Override
-    public studentEntity updateStudent(Long id, studentEntity studentDetails) {
-        studentEntity student = studentRepository.findById(id).orElse(null);
-        if (student != null) {
-            student.setLast_name(studentDetails.getLast_name());
-            student.setFirst_name(studentDetails.getFirst_name());
-            student.setMiddle_name(studentDetails.getMiddle_name());
-            student.setBirth_date(studentDetails.getBirth_date());
-            student.setGender(studentDetails.getGender());
-            student.setEmail(studentDetails.getEmail());
-            student.setContact_number(studentDetails.getContact_number());
-            student.setAddress(studentDetails.getAddress());
-            student.setUsername(studentDetails.getUsername());
-            student.setCourse(studentDetails.getCourse());
-            student.setYear_level(studentDetails.getYear_level());
-            student.setRole(studentDetails.getRole());
-            student.setPassword(studentDetails.getPassword());
-            return studentRepository.save(student);
+    public studentEntity updateStudent(Long id, studentEntity updatedDetails) {
+        studentEntity existingStudent = getStudentById(id);
+        if (existingStudent == null) {
+            return null;
         }
-        return null;
+    
+        if (updatedDetails.getFirst_name() != null)
+            existingStudent.setFirst_name(updatedDetails.getFirst_name());
+    
+        if (updatedDetails.getLast_name() != null)
+            existingStudent.setLast_name(updatedDetails.getLast_name());
+    
+        if (updatedDetails.getMiddle_name() != null)
+            existingStudent.setMiddle_name(updatedDetails.getMiddle_name());
+    
+        if (updatedDetails.getBirth_date() != null)
+            existingStudent.setBirth_date(updatedDetails.getBirth_date());
+    
+        if (updatedDetails.getGender() != null)
+            existingStudent.setGender(updatedDetails.getGender());
+    
+        if (updatedDetails.getEmail() != null)
+            existingStudent.setEmail(updatedDetails.getEmail());
+    
+        if (updatedDetails.getContact_number() != null)
+            existingStudent.setContact_number(updatedDetails.getContact_number());
+    
+        if (updatedDetails.getAddress() != null)
+            existingStudent.setAddress(updatedDetails.getAddress());
+    
+        if (updatedDetails.getUsername() != null)
+            existingStudent.setUsername(updatedDetails.getUsername());
+    
+        if (updatedDetails.getCourse() != null)
+            existingStudent.setCourse(updatedDetails.getCourse());
+    
+        if (updatedDetails.getYear_level() != null)
+            existingStudent.setYear_level(updatedDetails.getYear_level());
+    
+        if (updatedDetails.getProfileImage() != null)
+            existingStudent.setProfileImage(updatedDetails.getProfileImage());
+    
+        if (updatedDetails.getRole() != null)
+            existingStudent.setRole(updatedDetails.getRole());
+    
+        if (updatedDetails.getPassword() != null)
+            existingStudent.setPassword(updatedDetails.getPassword());
+    
+        return studentRepository.save(existingStudent);
     }
+    
+    
 
     @Override
     public boolean deleteStudent(Long id) {
@@ -63,4 +95,15 @@ public class studentServiceImpl implements studentService {
 		studentEntity student = studentRepository.findByEmail(email);
 		return student != null && student.getPassword().equals(password) && student.getRole() == studentEntity.Role.Tutee;
 	}
+    @Override
+    public boolean updateStudentPassword(Long studentId, String oldPassword, String newPassword) {
+        studentEntity student = studentRepository.findById(studentId).orElse(null);
+        if (student == null || !student.getPassword().equals(oldPassword)) {
+            return false;  // Incorrect password
+        }
+        student.setPassword(newPassword);  // Update password
+        studentRepository.save(student);
+        return true;  // Success
+    }
+    
 }

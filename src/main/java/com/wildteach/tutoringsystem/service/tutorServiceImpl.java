@@ -55,6 +55,24 @@ public class tutorServiceImpl implements tutorService {
         return student != null && student.getPassword().equals(password) && student.getRole() == studentEntity.Role.Tutor;
     }
 
+    @Override
+    public boolean updateTutorPassword(Long tutor_id, String currentPassword, String newPassword) {
+    tutorEntity tutor = tutorRepository.findById(tutor_id).orElse(null);
+
+    if (tutor != null) {
+        studentEntity student = tutor.getStudent();
+        if (student != null && student.getPassword().equals(currentPassword)) {
+            student.setPassword(newPassword);
+            // Save through student repository if needed, or cascade from tutor
+            tutorRepository.save(tutor); // Assumes cascade is set up
+            return true;
+        }
+    }
+
+    return false;
+}
+    
+
 
     
 }

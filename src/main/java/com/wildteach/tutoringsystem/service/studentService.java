@@ -11,5 +11,6 @@ public interface studentService {
 	public studentEntity updateStudent(Long id, studentEntity studentDetails); 
 	public boolean deleteStudent(Long id);
 	public boolean authenticateStudent(String email, String password); 
+	public boolean updateStudentPassword(Long student_id, String currentPassword, String newPassword);
 	
 }
