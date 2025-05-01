@@ -99,11 +99,16 @@ public class studentServiceImpl implements studentService {
     public boolean updateStudentPassword(Long studentId, String oldPassword, String newPassword) {
         studentEntity student = studentRepository.findById(studentId).orElse(null);
         if (student == null || !student.getPassword().equals(oldPassword)) {
-            return false;  // Incorrect password
+            return false;  
         }
-        student.setPassword(newPassword);  // Update password
+        student.setPassword(newPassword);  
         studentRepository.save(student);
-        return true;  // Success
+        return true; 
     }
+    @Override
+    public studentEntity findByEmail(String email) {
+        return studentRepository.findByEmail(email);
+    }
+    
     
 }

@@ -70,7 +70,22 @@ public class tutorServiceImpl implements tutorService {
     }
 
     return false;
-}
+    }
+    @Override
+    public tutorEntity saveTutorWithStudentId(Long studentId, tutorEntity tutorData) {
+        studentEntity student = studentRepository.findById(studentId)
+            .orElseThrow(() -> new RuntimeException("Student not found with ID: " + studentId));
+    
+        tutorData.setStudent(student);
+        return tutorRepository.save(tutorData);
+    }
+    @Override
+    public tutorEntity findByStudent(Long studentId) {
+        return tutorRepository.findByStudentId(studentId);
+    }
+    
+    
+    
     
 
 

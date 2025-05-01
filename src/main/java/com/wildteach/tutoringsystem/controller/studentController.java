@@ -1,7 +1,11 @@
 package com.wildteach.tutoringsystem.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,9 +24,12 @@ public class studentController {
 
     
     @PostMapping("/add")
-    public String addStudent(@RequestBody studentEntity student) {
-        studentService.saveStudent(student);
-        return "New student is added";
+    public ResponseEntity<Long> addStudent(@RequestBody studentEntity student) {
+        studentEntity saved = studentService.saveStudent(student);
+        Long id = saved.getStudent_id();           
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(id);
     }
 
     @GetMapping("/all")
@@ -55,30 +62,36 @@ public class studentController {
         }
     }
 
-    @PostMapping("/login")
-	public ResponseEntity<String> loginStudent(@RequestBody studentEntity student) {
-		boolean isAuthenticated = studentService.authenticateStudent(student.getEmail(), student.getPassword());
-		if (isAuthenticated) {
-			return ResponseEntity.ok("Login successful");
-		} else {
-			return ResponseEntity.status(401).body("Invalid email or password");
-		}
-	}
+   @PostMapping("/login")
+    public ResponseEntity<?> loginStudent(@RequestBody studentEntity student) {
+        boolean isAuthenticated = studentService.authenticateStudent(student.getEmail(), student.getPassword());
+        if (!isAuthenticated) {
+            return ResponseEntity.status(401).body(Map.of("message", "Invalid email or password"));
+        }
+
+        studentEntity foundStudent = studentService.findByEmail(student.getEmail());
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Login successful");
+        response.put("student_id", foundStudent.getStudent_id());
+
+        return ResponseEntity.ok(response);
+    }
+
     @PutMapping("/updatePassword")
     public ResponseEntity<String> updateStudentPassword(
-        @RequestBody updatePasswordDTO dto) {  // Use the DTO here
+        @RequestBody updatePasswordDTO dto) {  
     
-        // Extract studentId from the request (assuming it's part of the logged-in user or passed in the body)
-        Long studentId = dto.getStudentId();  // Add this to your DTO if it's not there
+        Long studentId = dto.getStudentId();  
     
         if (studentId == null) {
             return ResponseEntity.status(400).body("Student ID is missing");
         }
     
         boolean success = studentService.updateStudentPassword(
-            studentId,  // Use the extracted student ID
+            studentId,  
             dto.getOldPassword(), 
-            dto.getNewPassword());  // Use the DTO's fields
+            dto.getNewPassword());  
     
         if (success) {
             return ResponseEntity.ok("Password updated successfully");
