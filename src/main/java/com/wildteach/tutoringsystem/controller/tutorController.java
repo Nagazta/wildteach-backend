@@ -15,17 +15,15 @@ import com.wildteach.tutoringsystem.entity.tutorEntity;
 import com.wildteach.tutoringsystem.service.tutorService;
 import com.wildteach.tutoringsystem.service.studentService;
 
-
 @RestController
 @RequestMapping("/tutor")
-@CrossOrigin(origins = "*") 
+@CrossOrigin(origins = "*")
 public class tutorController {
-    
+
     @Autowired
     private tutorService tutorService;
     @Autowired
     private studentService studentService;
-
 
     // Endpoint to add a new tutor
     @PostMapping("/add")
@@ -57,16 +55,19 @@ public class tutorController {
         tutorEntity savedTutor = tutorService.saveTutorWithStudentId(studentId, tutor);
         return ResponseEntity.ok(savedTutor);
     }   
+
     // Endpoint to get all tutors
     @GetMapping("/all")
     public List<tutorEntity> getAllTutors() {
         return tutorService.getAllTutors();
     }
-   // Endpoint to get a tutor by ID
+
+    // Endpoint to get a tutor by ID
     @GetMapping("/getById/{id}")
     public tutorEntity getTutorById(@PathVariable Long id) {
         return tutorService.getTutorById(id);
     }
+
     // Endpoint to update a tutor by ID
     @PutMapping("/update/{id}")
     public ResponseEntity<tutorEntity> updateTutor(@PathVariable Long id, @RequestBody tutorEntity tutorDetails) {
@@ -78,15 +79,15 @@ public class tutorController {
         }
     }
 
-
     // Endpoint to delete a tutor by ID
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteTutor(@PathVariable Long id) {
         tutorService.deleteTutor(id);
         return ResponseEntity.status(HttpStatus.OK).body("Tutor profile deleted");
     }
-     //Endpoint to login a tutor
-     @PostMapping("/login")
+
+    // Endpoint to login a tutor
+    @PostMapping("/login")
     public ResponseEntity<?> loginTutor(@RequestBody studentEntity student) {
         boolean isAuthenticated = tutorService.authenticateTutor(student.getEmail(), student.getPassword());
         if (!isAuthenticated) {
