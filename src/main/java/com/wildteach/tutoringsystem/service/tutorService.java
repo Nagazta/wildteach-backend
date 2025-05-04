@@ -1,6 +1,7 @@
 package com.wildteach.tutoringsystem.service;
 
 import java.util.List;
+
 import com.wildteach.tutoringsystem.entity.tutorEntity;
 
 public interface tutorService {
@@ -17,4 +18,8 @@ public interface tutorService {
     boolean authenticateTutor(String email, String password);
 
     int countActiveTutors();
+    boolean updateTutorPassword(Long tutor_id, String currentPassword, String newPassword);
+    tutorEntity saveTutorWithStudentId(Long studentId, tutorEntity tutorData);
+    tutorEntity findByStudent(Long studentId);  
+
 }

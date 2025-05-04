@@ -1,11 +1,21 @@
 package com.wildteach.tutoringsystem.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.wildteach.tutoringsystem.dto.updatePasswordDTO;
 import com.wildteach.tutoringsystem.entity.studentEntity;
 import com.wildteach.tutoringsystem.service.studentService;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 527e43c6eb8fe1235a7af7d8111c7134dd86ced6
 
 @RestController
 @RequestMapping("/student")
@@ -15,10 +25,17 @@ public class studentController {
     @Autowired
     private studentService studentService;
 
+<<<<<<< HEAD
+=======
+    
+>>>>>>> 527e43c6eb8fe1235a7af7d8111c7134dd86ced6
     @PostMapping("/add")
-    public String addStudent(@RequestBody studentEntity student) {
-        studentService.saveStudent(student);
-        return "New student is added";
+    public ResponseEntity<Long> addStudent(@RequestBody studentEntity student) {
+        studentEntity saved = studentService.saveStudent(student);
+        Long id = saved.getStudent_id();           
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(id);
     }
 
     @GetMapping("/all")
@@ -46,7 +63,7 @@ public class studentController {
             return ResponseEntity.notFound().build();
         }
     }
-
+  
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteStudent(@PathVariable Long id) {
         boolean deleted = studentService.deleteStudent(id);
@@ -57,13 +74,43 @@ public class studentController {
         }
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> loginStudent(@RequestBody studentEntity student) {
+
+
+   @PostMapping("/login")
+    public ResponseEntity<?> loginStudent(@RequestBody studentEntity student) {
         boolean isAuthenticated = studentService.authenticateStudent(student.getEmail(), student.getPassword());
-        if (isAuthenticated) {
-            return ResponseEntity.ok("Login successful");
+        if (!isAuthenticated) {
+            return ResponseEntity.status(401).body(Map.of("message", "Invalid email or password"));
+        }
+
+        studentEntity foundStudent = studentService.findByEmail(student.getEmail());
+
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "Login successful");
+        response.put("student_id", foundStudent.getStudent_id());
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PutMapping("/updatePassword")
+    public ResponseEntity<String> updateStudentPassword(
+        @RequestBody updatePasswordDTO dto) {  
+    
+        Long studentId = dto.getStudentId();  
+    
+        if (studentId == null) {
+            return ResponseEntity.status(400).body("Student ID is missing");
+        }
+    
+        boolean success = studentService.updateStudentPassword(
+            studentId,  
+            dto.getOldPassword(), 
+            dto.getNewPassword());  
+    
+        if (success) {
+            return ResponseEntity.ok("Password updated successfully");
         } else {
-            return ResponseEntity.status(401).body("Invalid email or password");
+            return ResponseEntity.status(400).body("Current password is incorrect");
         }
     }
 }

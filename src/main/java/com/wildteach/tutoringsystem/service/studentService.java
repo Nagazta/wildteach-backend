@@ -18,4 +18,8 @@ public interface studentService {
 
 	long countActiveStudents();
 
+	public boolean updateStudentPassword(Long student_id, String currentPassword, String newPassword);
+	studentEntity findByEmail(String email);
+	
+	
 }

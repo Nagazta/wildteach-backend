@@ -2,6 +2,8 @@ package com.wildteach.tutoringsystem.entity;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.List;
 
 @Entity
 public class tutorEntity {
@@ -15,11 +17,14 @@ public class tutorEntity {
 
     private String subjects_offered;
     private BigDecimal rate_per_hour;
-    private String availability;
+    
+    // This should be a List<String> instead of a single string
+    private String availability; 
 
     @Enumerated(EnumType.STRING)
     private ApprovalStatus approvalStatus;
 
+    // Enum for approval status
     public enum ApprovalStatus {
         Pending, Approved, Rejected
     }
@@ -56,12 +61,13 @@ public class tutorEntity {
         this.rate_per_hour = rate_per_hour;
     }
 
-    public String getAvailability() {
-        return availability;
-    }
-
+    // Directly accept List<String> for availability
     public void setAvailability(String availability) {
         this.availability = availability;
+    }
+
+    public String getAvailability() {
+        return availability;
     }
 
     public ApprovalStatus getApprovalStatus() {
