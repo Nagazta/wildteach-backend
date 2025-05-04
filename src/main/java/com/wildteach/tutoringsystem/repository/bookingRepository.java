@@ -7,5 +7,6 @@ import com.wildteach.tutoringsystem.entity.bookingEntity;
 
 @Repository
 public interface bookingRepository extends JpaRepository<bookingEntity, Long> {
-}
+    public long countByStatus(String status);
 
+}

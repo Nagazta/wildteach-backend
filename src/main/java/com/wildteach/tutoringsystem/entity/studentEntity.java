@@ -33,6 +33,10 @@ public class studentEntity {
 	private Role role;
 	private String password;
 
+	// Added is_active field
+	@Column(nullable = false)
+	private boolean is_active = true; // Default value is true
+
 	public enum Role {
 		Tutee,
 		Tutor
@@ -158,6 +162,14 @@ public class studentEntity {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	// Getter and Setter for is_active
+	public boolean getIs_active() {
+		return is_active;
+	}
+
+	public void setIs_active(boolean is_active) {
+		this.is_active = is_active;
 
 	public void setProfileImage(String profileImage) {
 		this.profileImage = profileImage;

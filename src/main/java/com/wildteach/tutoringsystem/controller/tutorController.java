@@ -26,7 +26,7 @@ public class tutorController {
     private studentService studentService;
 
     // Endpoint to add a new tutor
-    @PostMapping("/add")
+  
     public ResponseEntity<?> addTutor(@RequestBody Map<String, Object> payload) {
         Long studentId = Long.valueOf(payload.get("student_id").toString());
 
@@ -86,7 +86,15 @@ public class tutorController {
         return ResponseEntity.status(HttpStatus.OK).body("Tutor profile deleted");
     }
 
+
+
+    @GetMapping("/activeCount")
+    public ResponseEntity<Integer> getActiveTutorsCount() {
+        int activeTutorsCount = tutorService.countActiveTutors();
+        return ResponseEntity.ok(activeTutorsCount);
+    }
     // Endpoint to login a tutor
+  
     @PostMapping("/login")
     public ResponseEntity<?> loginTutor(@RequestBody studentEntity student) {
         boolean isAuthenticated = tutorService.authenticateTutor(student.getEmail(), student.getPassword());

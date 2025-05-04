@@ -1,6 +1,9 @@
 package com.wildteach.tutoringsystem.service;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,5 +50,16 @@ public class announcementServiceImpl implements announcementService {
             announcementRepository.deleteById(id);
         }
         return announcement;
+    }
+
+    @Override
+    public List<announcementEntity> getActiveAnnouncements() {
+        LocalDateTime thirtyDaysAgo = LocalDateTime.now().minus(30, ChronoUnit.DAYS);
+        List<announcementEntity> allAnnouncements = announcementRepository.findAll();
+
+        // Filter out announcements that beyond 30 days smth max
+        return allAnnouncements.stream()
+                .filter(announcement -> announcement.getCreated_at().isAfter(thirtyDaysAgo))
+                .collect(Collectors.toList());
     }
 }

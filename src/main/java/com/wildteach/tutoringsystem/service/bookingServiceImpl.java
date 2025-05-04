@@ -36,14 +36,14 @@ public class bookingServiceImpl implements bookingService {
     public bookingEntity updateBooking(Long id, bookingEntity bookingDetails) {
         bookingEntity booking = bookingRepository.findById(id).orElse(null);
         if (booking != null) {
-        	
-//        	// Fetch student and tutor from DB by ID
-//            studentEntity student = studentRepository.findById(
-//                bookingDetails.getStudent().getStudent_id()).orElse(null);
-//
-//            tutorEntity tutor = tutorRepository.findById(
-//                bookingDetails.getTutor().getTutor_id()).orElse(null);
-            
+
+            // // Fetch student and tutor from DB by ID
+            // studentEntity student = studentRepository.findById(
+            // bookingDetails.getStudent().getStudent_id()).orElse(null);
+            //
+            // tutorEntity tutor = tutorRepository.findById(
+            // bookingDetails.getTutor().getTutor_id()).orElse(null);
+
             booking.setStudent(bookingDetails.getStudent());
             booking.setTutor(bookingDetails.getTutor());
             booking.setSubject(bookingDetails.getSubject());
@@ -62,4 +62,10 @@ public class bookingServiceImpl implements bookingService {
         }
         return false;
     }
+
+    @Override
+    public long getActiveSessionsCount() {
+        return bookingRepository.countByStatus("active");
+    }
+
 }

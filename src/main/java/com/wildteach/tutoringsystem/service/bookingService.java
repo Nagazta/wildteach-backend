@@ -6,7 +6,7 @@ import java.util.List;
 public interface bookingService {
 
     // Save a new booking
-	bookingEntity saveBooking(bookingEntity booking);
+    bookingEntity saveBooking(bookingEntity booking);
 
     // Get all bookings
     List<bookingEntity> getAllBookings();
@@ -19,4 +19,7 @@ public interface bookingService {
 
     // Delete a booking by its ID
     boolean deleteBooking(Long id);
+
+    public long getActiveSessionsCount();
+
 }

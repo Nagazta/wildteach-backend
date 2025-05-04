@@ -92,9 +92,16 @@ public class studentServiceImpl implements studentService {
 
     @Override
     public boolean authenticateStudent(String email, String password) {
-		studentEntity student = studentRepository.findByEmail(email);
-		return student != null && student.getPassword().equals(password) && student.getRole() == studentEntity.Role.Tutee;
-	}
+        studentEntity student = studentRepository.findByEmail(email);
+        return student != null && student.getPassword().equals(password)
+                && student.getRole() == studentEntity.Role.Tutee;
+    }
+
+    @Override
+    public long countActiveStudents() {
+        return studentRepository.countByRole(studentEntity.Role.Tutee);
+    }
+
     @Override
     public boolean updateStudentPassword(Long studentId, String oldPassword, String newPassword) {
         studentEntity student = studentRepository.findById(studentId).orElse(null);

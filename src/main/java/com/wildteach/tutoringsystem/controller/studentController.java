@@ -42,8 +42,14 @@ public class studentController {
         return studentService.getStudentById(id);
     }
 
+    @GetMapping("/activeStudentsCount")
+    public long getActiveStudentsCount() {
+        return studentService.countActiveStudents();
+    }
+
     @PutMapping("/update/{id}")
-    public ResponseEntity<studentEntity> updateStudent(@PathVariable Long id, @RequestBody studentEntity studentDetails) {
+    public ResponseEntity<studentEntity> updateStudent(@PathVariable Long id,
+            @RequestBody studentEntity studentDetails) {
         studentEntity updatedStudent = studentService.updateStudent(id, studentDetails);
         if (updatedStudent != null) {
             return ResponseEntity.ok(updatedStudent);
@@ -61,6 +67,8 @@ public class studentController {
             return ResponseEntity.status(404).body("Student not found");
         }
     }
+
+
 
    @PostMapping("/login")
     public ResponseEntity<?> loginStudent(@RequestBody studentEntity student) {
@@ -99,7 +107,4 @@ public class studentController {
             return ResponseEntity.status(400).body("Current password is incorrect");
         }
     }
-    
-
-
 }
