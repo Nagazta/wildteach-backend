@@ -1,12 +1,15 @@
 package com.wildteach.tutoringsystem.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.wildteach.tutoringsystem.entity.adminEntity;
+import com.wildteach.tutoringsystem.repository.adminRepository;
 import com.wildteach.tutoringsystem.service.adminService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -24,6 +27,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class adminController {
     @Autowired
     private adminService adminService;
+    @Autowired
+private adminRepository adminRepository;
     // Endpoint to add a new admin
     @PostMapping("/addAdmin")
     public String addAdmin(@RequestBody adminEntity admin) {
@@ -36,10 +41,13 @@ public class adminController {
         return adminService.getAllAdmins();
     }
     // Endpoint to get an admin by ID
-    @GetMapping("/getAdminById/{id}")
-    public adminEntity getAdminById(@PathVariable Long id) {
-        return adminService.getAdminById(id);
+    @GetMapping("/getAdmin/{id}")
+    public ResponseEntity<adminEntity> getAdminById(@PathVariable Long id) {
+        Optional<adminEntity> admin = adminRepository.findById(id);
+        return admin.map(ResponseEntity::ok)
+                    .orElseGet(() -> ResponseEntity.notFound().build());
     }
+
     // Endpoint to update an admin by ID
     @PutMapping("/updateAdmin/{id}")
     public adminEntity updateAdmin(@PathVariable Long id, @RequestBody adminEntity adminDetails) {

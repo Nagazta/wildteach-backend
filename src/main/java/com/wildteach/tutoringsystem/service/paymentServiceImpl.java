@@ -10,7 +10,6 @@ import com.wildteach.tutoringsystem.entity.bookingEntity;
 import com.wildteach.tutoringsystem.entity.paymentEntity;
 import com.wildteach.tutoringsystem.repository.bookingRepository;
 import com.wildteach.tutoringsystem.repository.paymentRepository;
-import com.wildteach.tutoringsystem.service.paymentService;
 
 @Service
 public class paymentServiceImpl implements paymentService {
