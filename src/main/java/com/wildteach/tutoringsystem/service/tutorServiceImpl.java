@@ -59,7 +59,6 @@ public class tutorServiceImpl implements tutorService {
 
     @Override
     public int countActiveTutors() {
-        // Count tutors who are 'Approved'
         return (int) tutorRepository.countByApprovalStatus(tutorEntity.ApprovalStatus.Approved);
     }
 

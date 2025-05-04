@@ -10,11 +10,10 @@ import com.wildteach.tutoringsystem.entity.bookingEntity;
 import com.wildteach.tutoringsystem.entity.paymentEntity;
 import com.wildteach.tutoringsystem.repository.bookingRepository;
 import com.wildteach.tutoringsystem.repository.paymentRepository;
-import com.wildteach.tutoringsystem.service.paymentService;
 
 @Service
 public class paymentServiceImpl implements paymentService {
-    
+
     @Autowired
     private paymentRepository paymentRepository;
 
@@ -29,20 +28,24 @@ public class paymentServiceImpl implements paymentService {
                 payment.setBooking(bookingOptional.get());
                 return paymentRepository.save(payment);
             } else {
-                throw new IllegalArgumentException("Booking with ID " + payment.getBooking().getBookingId() + " does not exist.");
+                throw new IllegalArgumentException(
+                        "Booking with ID " + payment.getBooking().getBookingId() + " does not exist.");
             }
         } else {
             throw new IllegalArgumentException("Booking must not be null.");
         }
     }
+
     @Override
     public List<paymentEntity> getAllPayments() {
         return paymentRepository.findAll();
     }
+
     @Override
     public paymentEntity getPaymentById(Long id) {
         return paymentRepository.findById(id).orElse(null);
     }
+
     @Override
     public paymentEntity updatePayment(Long id, paymentEntity paymentDetails) {
         paymentEntity payment = paymentRepository.findById(id).orElse(null);
@@ -53,8 +56,15 @@ public class paymentServiceImpl implements paymentService {
         }
         return null;
     }
+
     @Override
     public void deletePayment(Long id) {
         paymentRepository.deleteById(id);
     }
+
+    @Override
+    public Double getTotalCompletedPayments() {
+        return paymentRepository.getTotalCompletedPayments();
+    }
+
 }

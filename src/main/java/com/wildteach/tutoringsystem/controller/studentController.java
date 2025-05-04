@@ -6,7 +6,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.wildteach.tutoringsystem.entity.studentEntity;
 import com.wildteach.tutoringsystem.service.studentService;
-import com.wildteach.tutoringsystem.repository.studentRepository;
 
 @RestController
 @RequestMapping("/student")
@@ -15,9 +14,6 @@ public class studentController {
 
     @Autowired
     private studentService studentService;
-
-    @Autowired
-    private studentRepository studentRepository; // Inject the studentRepository
 
     @PostMapping("/add")
     public String addStudent(@RequestBody studentEntity student) {

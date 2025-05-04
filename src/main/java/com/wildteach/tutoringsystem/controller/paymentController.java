@@ -22,22 +22,26 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public class paymentController {
     @Autowired
     private paymentService paymentService;
+
     // Endpoint to add a new payment
     @PostMapping("/addPayment")
     public String addPayment(@RequestBody paymentEntity payment) {
         paymentService.savePayment(payment);
         return "New payment is added";
     }
+
     // Endpoint to get all payments
     @GetMapping("/getAllPayments")
     public List<paymentEntity> getAllPayments() {
         return paymentService.getAllPayments();
     }
+
     // Endpoint to get a payment by ID
     @GetMapping("/getPaymentById/{id}")
     public paymentEntity getPaymentById(@PathVariable Long id) {
         return paymentService.getPaymentById(id);
     }
+
     // Endpoint to update a payment by ID
     @PutMapping("/updatePayment/{id}")
     public paymentEntity updatePayment(@PathVariable Long id, @RequestBody paymentEntity paymentDetails) {
@@ -45,14 +49,20 @@ public class paymentController {
         if (updatedPayment != null) {
             return updatedPayment;
         } else {
-            return null; 
+            return null;
         }
     }
+
     // Endpoint to delete a payment by ID
     @DeleteMapping("/deletePayment/{id}")
     public String deletePayment(@PathVariable Long id) {
         paymentService.deletePayment(id);
         return "Payment with ID " + id + " has been deleted.";
     }
-    
+
+    @GetMapping("/totalCompletedPayments")
+    public Double getTotalCompletedPayments() {
+        return paymentService.getTotalCompletedPayments();
+    }
+
 }
