@@ -2,8 +2,6 @@ package com.wildteach.tutoringsystem.entity;
 
 import jakarta.persistence.*;
 import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.List;
 
 @Entity
 public class tutorEntity {
@@ -17,9 +15,9 @@ public class tutorEntity {
 
     private String subjects_offered;
     private BigDecimal rate_per_hour;
-    
+
     // This should be a List<String> instead of a single string
-    private String availability; 
+    private String availability;
 
     @Enumerated(EnumType.STRING)
     private ApprovalStatus approvalStatus;

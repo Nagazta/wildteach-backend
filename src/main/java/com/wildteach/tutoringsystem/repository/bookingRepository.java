@@ -9,4 +9,6 @@ import com.wildteach.tutoringsystem.entity.bookingEntity;
 public interface bookingRepository extends JpaRepository<bookingEntity, Long> {
     public long countByStatus(String status);
 
+    List<bookingEntity> findByTutorTutorId(Long tutorId);
+
 }

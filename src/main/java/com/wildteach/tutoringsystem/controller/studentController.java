@@ -12,10 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import com.wildteach.tutoringsystem.dto.updatePasswordDTO;
 import com.wildteach.tutoringsystem.entity.studentEntity;
 import com.wildteach.tutoringsystem.service.studentService;
-<<<<<<< HEAD
-=======
-
->>>>>>> 527e43c6eb8fe1235a7af7d8111c7134dd86ced6
 
 @RestController
 @RequestMapping("/student")
@@ -25,14 +21,10 @@ public class studentController {
     @Autowired
     private studentService studentService;
 
-<<<<<<< HEAD
-=======
-    
->>>>>>> 527e43c6eb8fe1235a7af7d8111c7134dd86ced6
     @PostMapping("/add")
     public ResponseEntity<Long> addStudent(@RequestBody studentEntity student) {
         studentEntity saved = studentService.saveStudent(student);
-        Long id = saved.getStudent_id();           
+        Long id = saved.getStudent_id();
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(id);
@@ -63,7 +55,7 @@ public class studentController {
             return ResponseEntity.notFound().build();
         }
     }
-  
+
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<String> deleteStudent(@PathVariable Long id) {
         boolean deleted = studentService.deleteStudent(id);
@@ -74,9 +66,7 @@ public class studentController {
         }
     }
 
-
-
-   @PostMapping("/login")
+    @PostMapping("/login")
     public ResponseEntity<?> loginStudent(@RequestBody studentEntity student) {
         boolean isAuthenticated = studentService.authenticateStudent(student.getEmail(), student.getPassword());
         if (!isAuthenticated) {
@@ -94,19 +84,19 @@ public class studentController {
 
     @PutMapping("/updatePassword")
     public ResponseEntity<String> updateStudentPassword(
-        @RequestBody updatePasswordDTO dto) {  
-    
-        Long studentId = dto.getStudentId();  
-    
+            @RequestBody updatePasswordDTO dto) {
+
+        Long studentId = dto.getStudentId();
+
         if (studentId == null) {
             return ResponseEntity.status(400).body("Student ID is missing");
         }
-    
+
         boolean success = studentService.updateStudentPassword(
-            studentId,  
-            dto.getOldPassword(), 
-            dto.getNewPassword());  
-    
+                studentId,
+                dto.getOldPassword(),
+                dto.getNewPassword());
+
         if (success) {
             return ResponseEntity.ok("Password updated successfully");
         } else {
