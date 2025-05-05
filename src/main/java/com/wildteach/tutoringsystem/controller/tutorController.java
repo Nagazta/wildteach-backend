@@ -14,6 +14,9 @@ import com.wildteach.tutoringsystem.entity.studentEntity;
 import com.wildteach.tutoringsystem.entity.tutorEntity;
 import com.wildteach.tutoringsystem.service.tutorService;
 import com.wildteach.tutoringsystem.service.studentService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("/tutor")
@@ -26,7 +29,7 @@ public class tutorController {
     private studentService studentService;
 
     // Endpoint to add a new tutor
-  
+    @PostMapping("/add")
     public ResponseEntity<?> addTutor(@RequestBody Map<String, Object> payload) {
         Long studentId = Long.valueOf(payload.get("student_id").toString());
 
