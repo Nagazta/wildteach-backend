@@ -5,28 +5,27 @@ import org.springframework.stereotype.Service;
 import com.wildteach.tutoringsystem.entity.studentEntity;
 import com.wildteach.tutoringsystem.repository.adminRepository;
 import com.wildteach.tutoringsystem.repository.studentRepository;
-import com.wildteach.tutoringsystem.repository.tutorRepository;
 
 @Service
-public class userService  {
+public class userService {
 
     @Autowired
     private studentRepository studentRepository;
-       
+
     @Autowired
     private adminRepository adminRepository;
 
     public String getRoleByEmail(String email) {
         studentEntity student = studentRepository.findByEmail(email);
         if (student != null) {
-           
-            return student.getRole().name();  
+
+            return student.getRole().name();
         }
 
         if (adminRepository.findByEmail(email) != null) {
             return "Admin";
         }
 
-        return null;  
+        return null;
     }
 }

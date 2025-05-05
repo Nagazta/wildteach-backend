@@ -67,4 +67,9 @@ public class BookingController {
         return bookingService.getActiveSessionsCount();
     }
 
+    @GetMapping("/bytutor/{tutorId}")
+    public List<bookingEntity> getBookingsByTutorId(@PathVariable Long tutorId) {
+        return bookingService.getBookingsByTutorId(tutorId);
+    }
+
 }

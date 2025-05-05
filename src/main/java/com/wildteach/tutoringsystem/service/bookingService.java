@@ -22,4 +22,6 @@ public interface bookingService {
 
     public long getActiveSessionsCount();
 
+    List<bookingEntity> getBookingsByTutorId(Long tutorId);
+
 }
