@@ -5,22 +5,46 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.wildteach.tutoringsystem.entity.bookingEntity;
-//import com.wildteach.tutoringsystem.entity.studentEntity;
-//import com.wildteach.tutoringsystem.entity.tutorEntity;
+import com.wildteach.tutoringsystem.entity.studentEntity;
+import com.wildteach.tutoringsystem.entity.tutorEntity;
 import com.wildteach.tutoringsystem.repository.bookingRepository;
-//import com.wildteach.tutoringsystem.repository.studentRepository;
-//import com.wildteach.tutoringsystem.repository.tutorRepository;
+import com.wildteach.tutoringsystem.repository.studentRepository;
+import com.wildteach.tutoringsystem.repository.tutorRepository;
 
 @Service
 public class bookingServiceImpl implements bookingService {
 
     @Autowired
     private bookingRepository bookingRepository;
+    @Autowired
+    private studentRepository studentRepository;
+    @Autowired
+    private tutorRepository tutorRepository;
+
 
     @Override
     public bookingEntity saveBooking(bookingEntity booking) {
-        return bookingRepository.save(booking);
+    // Attach student if present
+    if (booking.getStudent() != null && booking.getStudent().getStudent_id() != null) {
+        studentEntity student = studentRepository.findById(booking.getStudent().getStudent_id())
+            .orElseThrow(() -> new RuntimeException("Student not found"));
+        booking.setStudent(student);
+    } else {
+        throw new RuntimeException("Student ID is required");
     }
+
+    // Attach tutor if present
+    if (booking.getTutor() != null && booking.getTutor().getTutor_id() != null) {
+        tutorEntity tutor = tutorRepository.findById(booking.getTutor().getTutor_id())
+            .orElseThrow(() -> new RuntimeException("Tutor not found"));
+        booking.setTutor(tutor);
+    } else {
+        throw new RuntimeException("Tutor ID is required");
+    }
+
+    return bookingRepository.save(booking);
+}
+
 
     @Override
     public List<bookingEntity> getAllBookings() {

@@ -14,6 +14,9 @@ import com.wildteach.tutoringsystem.entity.studentEntity;
 import com.wildteach.tutoringsystem.entity.tutorEntity;
 import com.wildteach.tutoringsystem.service.tutorService;
 import com.wildteach.tutoringsystem.service.studentService;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("/tutor")
@@ -25,8 +28,7 @@ public class tutorController {
     @Autowired
     private studentService studentService;
 
-    // Endpoint to add a new tutor
-  
+    @PostMapping("/add")
     public ResponseEntity<?> addTutor(@RequestBody Map<String, Object> payload) {
         Long studentId = Long.valueOf(payload.get("student_id").toString());
 
@@ -54,7 +56,7 @@ public class tutorController {
 
         tutorEntity savedTutor = tutorService.saveTutorWithStudentId(studentId, tutor);
         return ResponseEntity.ok(savedTutor);
-    }   
+    }
 
     // Endpoint to get all tutors
     @GetMapping("/all")
@@ -86,15 +88,13 @@ public class tutorController {
         return ResponseEntity.status(HttpStatus.OK).body("Tutor profile deleted");
     }
 
-
-
     @GetMapping("/activeCount")
     public ResponseEntity<Integer> getActiveTutorsCount() {
         int activeTutorsCount = tutorService.countActiveTutors();
         return ResponseEntity.ok(activeTutorsCount);
     }
     // Endpoint to login a tutor
-  
+
     @PostMapping("/login")
     public ResponseEntity<?> loginTutor(@RequestBody studentEntity student) {
         boolean isAuthenticated = tutorService.authenticateTutor(student.getEmail(), student.getPassword());
@@ -109,6 +109,7 @@ public class tutorController {
         response.put("message", "Login successful");
         response.put("tutor_id", foundTutor.getTutor_id());
         response.put("student_id", foundStudent.getStudent_id());
+        response.put("name", foundStudent.getFirst_name() + " " + foundStudent.getLast_name());
 
         return ResponseEntity.ok(response);
     }
