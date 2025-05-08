@@ -11,8 +11,6 @@ import jakarta.persistence.Table;
 
 import java.time.LocalDateTime;
 
-import com.wildteach.tutoringsystem.entity.studentEntity;
-
 @Entity
 @Table(name = "messages")
 public class Message {
@@ -31,7 +29,8 @@ public class Message {
     private String content;
     private LocalDateTime timestamp;
 
-    public Message(){}
+    public Message() {
+    }
 
     public Message(studentEntity sender, studentEntity receiver, String content, LocalDateTime timestamp) {
         this.sender = sender;
@@ -39,42 +38,43 @@ public class Message {
         this.content = content;
         this.timestamp = timestamp;
     }
+
     public Long getId() {
         return id;
     }
-    
+
     public void setId(Long id) {
         this.id = id;
     }
-    
+
     public studentEntity getSender() {
         return sender;
     }
-    
+
     public void setSender(studentEntity sender) {
         this.sender = sender;
     }
-    
+
     public studentEntity getReceiver() {
         return receiver;
     }
-    
+
     public void setReceiver(studentEntity receiver) {
         this.receiver = receiver;
     }
-    
+
     public String getContent() {
         return content;
     }
-    
+
     public void setContent(String content) {
         this.content = content;
     }
-    
+
     public LocalDateTime getTimestamp() {
         return timestamp;
     }
-    
+
     public void setTimestamp(LocalDateTime timestamp) {
         this.timestamp = timestamp;
     }
