@@ -23,7 +23,8 @@ public class paymentEntity {
     private double amount;
     @Enumerated(EnumType.STRING)
     private payment_status status;
-    private static enum payment_status{
+
+    public enum payment_status {
         Pending,
         Completed,
         Failed
@@ -32,24 +33,31 @@ public class paymentEntity {
     public long payment_id() {
         return payment_id;
     }
+
     public void setPayment_id(long payment_id) {
         this.payment_id = payment_id;
     }
+
     public bookingEntity getBooking() {
         return booking;
     }
+
     public void setBooking(bookingEntity booking) {
         this.booking = booking;
     }
+
     public double getAmount() {
         return amount;
     }
+
     public void setAmount(double amount) {
         this.amount = amount;
     }
+
     public payment_status getStatus() {
         return status;
     }
+
     public void setStatus(payment_status status) {
         this.status = status;
     }

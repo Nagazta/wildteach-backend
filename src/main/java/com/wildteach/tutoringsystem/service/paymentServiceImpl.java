@@ -13,7 +13,7 @@ import com.wildteach.tutoringsystem.repository.paymentRepository;
 
 @Service
 public class paymentServiceImpl implements paymentService {
-    
+
     @Autowired
     private paymentRepository paymentRepository;
 
@@ -26,36 +26,39 @@ public class paymentServiceImpl implements paymentService {
             Optional<bookingEntity> bookingOptional = bookingRepository.findById(payment.getBooking().getBookingId());
             if (bookingOptional.isPresent()) {
                 // Check if a payment already exists for this booking
-                
+
                 // If exists, find and update it instead of creating a new one
-                Optional<paymentEntity> existingPayment = paymentRepository.findByBooking_BookingId(payment.getBooking().getBookingId());
+                Optional<paymentEntity> existingPayment = paymentRepository
+                        .findByBooking_BookingId(payment.getBooking().getBookingId());
                 if (existingPayment.isPresent()) {
                     paymentEntity existingPaymentEntity = existingPayment.get();
                     existingPaymentEntity.setAmount(payment.getAmount());
                     existingPaymentEntity.setStatus(payment.getStatus());
                     return paymentRepository.save(existingPaymentEntity);
                 }
-                
-                
-                
+
                 // No existing payment found, create a new one
                 payment.setBooking(bookingOptional.get());
                 return paymentRepository.save(payment);
             } else {
-                throw new IllegalArgumentException("Booking with ID " + payment.getBooking().getBookingId() + " does not exist.");
+                throw new IllegalArgumentException(
+                        "Booking with ID " + payment.getBooking().getBookingId() + " does not exist.");
             }
         } else {
             throw new IllegalArgumentException("Booking must not be null.");
         }
     }
+
     @Override
     public List<paymentEntity> getAllPayments() {
         return paymentRepository.findAll();
     }
+
     @Override
     public paymentEntity getPaymentById(Long id) {
         return paymentRepository.findById(id).orElse(null);
     }
+
     @Override
     public paymentEntity updatePayment(Long id, paymentEntity paymentDetails) {
         paymentEntity payment = paymentRepository.findById(id).orElse(null);
@@ -66,8 +69,20 @@ public class paymentServiceImpl implements paymentService {
         }
         return null;
     }
+
     @Override
     public void deletePayment(Long id) {
         paymentRepository.deleteById(id);
     }
+
+    @Override
+    public double getTotalCompletedPaymentsByTutor(Long tutorId) {
+        List<paymentEntity> payments = paymentRepository.findAll(); // or a custom query
+        return payments.stream()
+                .filter(p -> p.getStatus() == paymentEntity.payment_status.Completed)
+                .filter(p -> p.getBooking().getTutor().getTutor_id().equals(tutorId))
+                .mapToDouble(paymentEntity::getAmount)
+                .sum();
+    }
+
 }

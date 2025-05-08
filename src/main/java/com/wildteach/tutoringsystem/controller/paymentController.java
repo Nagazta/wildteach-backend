@@ -72,7 +72,8 @@ public class paymentController {
 
     // Endpoint to update a payment by ID
     @PutMapping("/updatePayment/{id}")
-    public ResponseEntity<paymentEntity> updatePayment(@PathVariable Long id, @RequestBody paymentEntity paymentDetails) {
+    public ResponseEntity<paymentEntity> updatePayment(@PathVariable Long id,
+            @RequestBody paymentEntity paymentDetails) {
         paymentEntity updatedPayment = paymentService.updatePayment(id, paymentDetails);
         if (updatedPayment != null) {
             return ResponseEntity.ok(updatedPayment);
@@ -87,4 +88,11 @@ public class paymentController {
         paymentService.deletePayment(id);
         return ResponseEntity.ok("Payment with ID " + id + " has been deleted.");
     }
+
+    @GetMapping("/totalCompletedPayments/{tutorId}")
+    public ResponseEntity<Double> getTotalCompletedPaymentsByTutor(@PathVariable Long tutorId) {
+        double total = paymentService.getTotalCompletedPaymentsByTutor(tutorId);
+        return ResponseEntity.ok(total);
+    }
+
 }
