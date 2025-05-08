@@ -10,5 +10,5 @@ public interface paymentService {
     paymentEntity getPaymentById(Long id);
     paymentEntity updatePayment(Long id, paymentEntity paymentDetails);
     void deletePayment(Long id);
-    
+  
 } 

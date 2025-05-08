@@ -18,13 +18,12 @@ public class paymentEntity {
     private Long payment_id;
 
     @ManyToOne
-    @JoinColumn(name = "booking_id", nullable = false)
+    @JoinColumn(name = "booking_id", nullable = false, unique = true)
     private bookingEntity booking;
-
     private double amount;
     @Enumerated(EnumType.STRING)
     private payment_status status;
-    private enum payment_status{
+    private static enum payment_status{
         Pending,
         Completed,
         Failed

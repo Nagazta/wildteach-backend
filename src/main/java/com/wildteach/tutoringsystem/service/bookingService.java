@@ -22,4 +22,5 @@ public interface bookingService {
 
     public long getActiveSessionsCount();
 
+
 }

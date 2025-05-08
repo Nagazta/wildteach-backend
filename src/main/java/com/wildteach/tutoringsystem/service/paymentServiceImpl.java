@@ -25,6 +25,20 @@ public class paymentServiceImpl implements paymentService {
         if (payment.getBooking() != null) {
             Optional<bookingEntity> bookingOptional = bookingRepository.findById(payment.getBooking().getBookingId());
             if (bookingOptional.isPresent()) {
+                // Check if a payment already exists for this booking
+                
+                // If exists, find and update it instead of creating a new one
+                Optional<paymentEntity> existingPayment = paymentRepository.findByBooking_BookingId(payment.getBooking().getBookingId());
+                if (existingPayment.isPresent()) {
+                    paymentEntity existingPaymentEntity = existingPayment.get();
+                    existingPaymentEntity.setAmount(payment.getAmount());
+                    existingPaymentEntity.setStatus(payment.getStatus());
+                    return paymentRepository.save(existingPaymentEntity);
+                }
+                
+                
+                
+                // No existing payment found, create a new one
                 payment.setBooking(bookingOptional.get());
                 return paymentRepository.save(payment);
             } else {
