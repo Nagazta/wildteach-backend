@@ -36,14 +36,23 @@ public class tutorServiceImpl implements tutorService {
     public tutorEntity updateTutor(Long id, tutorEntity tutorDetails) {
         tutorEntity tutor = tutorRepository.findById(id).orElse(null);
         if (tutor != null) {
-            tutor.setSubjects_offered(tutorDetails.getSubjects_offered());
-            tutor.setRate_per_hour(tutorDetails.getRate_per_hour());
-            tutor.setAvailability(tutorDetails.getAvailability());
-            tutor.setApprovalStatus(tutorDetails.getApprovalStatus());
+            if (tutorDetails.getSubjects_offered() != null) {
+                tutor.setSubjects_offered(tutorDetails.getSubjects_offered());
+            }
+            if (tutorDetails.getRate_per_hour() != null) {
+                tutor.setRate_per_hour(tutorDetails.getRate_per_hour());
+            }
+            if (tutorDetails.getAvailability() != null) {
+                tutor.setAvailability(tutorDetails.getAvailability());
+            }
+            if (tutorDetails.getApprovalStatus() != null) {
+                tutor.setApprovalStatus(tutorDetails.getApprovalStatus());
+            }
             return tutorRepository.save(tutor);
         }
         return null;
     }
+
 
     @Override
     public void deleteTutor(Long id) {
