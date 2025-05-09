@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RestController
 @RequestMapping("/payment")
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:3000")
 public class paymentController {
 
     @Autowired

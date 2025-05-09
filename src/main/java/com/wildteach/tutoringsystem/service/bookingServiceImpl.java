@@ -89,7 +89,7 @@ public class bookingServiceImpl implements bookingService {
 
     @Override
     public long getActiveSessionsCount() {
-        return bookingRepository.countByStatus("active");
+        return bookingRepository.countByStatus("Scheduled");
     }
 
     
